@@ -19,6 +19,8 @@ RUN sudo apt install netcat -y
 RUN sudo apt-get -y install libssl-dev libffi-dev build-essential
 RUN python3 -m pip install --upgrade pwntools
 
-
 RUN sudo git clone https://github.com/volatilityfoundation/volatility3
 RUN echo "alias volatility='python3 ~/volatility3/vol.py'" >> ~/.zshrc
+
+RUN sudo apt-get install ruby-full -y
+RUN sudo gem install one_gadget

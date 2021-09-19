@@ -16,3 +16,7 @@ my security environment
   ```
   $ volatility --help
   ```
+- one_gadget
+  ```
+  $ one_gadget
+  ```
