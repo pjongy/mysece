@@ -1,3 +1,8 @@
-# mypwn
+# mysece
 
-my pwn environment
+my security environment
+
+## installed
+- gdb-peda
+- pwntools (python3)
+- volatility (python3)
