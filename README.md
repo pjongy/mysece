@@ -2,6 +2,11 @@
 
 my security environment
 
+## start
+```
+$ docker run --rm -v "$PWD/project:/home/dev/project" pjongy/mysece:{version}
+```
+
 ## installed
 - gdb-peda
   ```
@@ -19,4 +24,8 @@ my security environment
 - one_gadget
   ```
   $ one_gadget
+  ```
+- radare2
+  ```
+  $ r2
   ```
