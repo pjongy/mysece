@@ -1,4 +1,4 @@
-FROM pjongy/myde:0.1.0
+FROM pjongy/myde:0.1.3
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -45,6 +45,6 @@ RUN sudo apt install cmake -y
 RUN r2pm update
 RUN r2pm -ci r2ghidra
 
-COPY ./HELP.mysece /home/$USERNAME/HELP.mysece
-RUN sudo bash -c 'cat /home/dev/HELP.mysece >> /home/dev/HELP' #TODO: Change to use $USERNAME after copy ~/HELP with --chown
+COPY --chown=$USERNAME ./HELP.mysece /home/$USERNAME/HELP.mysece
+RUN cat /home/$USERNAME/HELP.mysece >> /home/$USERNAME/HELP
 RUN rm ~/HELP.mysece
