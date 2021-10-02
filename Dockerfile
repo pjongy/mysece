@@ -3,6 +3,7 @@ FROM pjongy/myde:0.1.0
 ENV DEBIAN_FRONTEND=noninteractive
 
 ARG USERNAME=dev
+ENV USERNAME $USERNAME
 ARG INSTALL_PATH=/home/$USERNAME/installed
 ENV INSTALL_PATH $INSTALL_PATH
 
@@ -39,3 +40,11 @@ RUN sudo gem install one_gadget
 
 RUN git clone https://github.com/radareorg/radare2 $INSTALL_PATH/radare2
 RUN $INSTALL_PATH/radare2/sys/install.sh
+RUN sudo apt install cmake -y
+# Install radare2 ghidra plugin
+RUN r2pm update
+RUN r2pm -ci r2ghidra
+
+COPY ./HELP.mysece /home/$USERNAME/HELP.mysece
+RUN sudo bash -c 'cat /home/dev/HELP.mysece >> /home/dev/HELP' #TODO: Change to use $USERNAME after copy ~/HELP with --chown
+RUN rm ~/HELP.mysece

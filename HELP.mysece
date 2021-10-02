@@ -1,0 +1,43 @@
+volatilty
+  Open memory dump
+    $ volatility -f {DUMP}
+
+gdb-peda
+  Open binary with gdb
+    $ gdb {BINARY_FILE}
+
+    Run
+      (gdb) r
+
+    Breakpoint
+      (gdb) b *{ADDRESS/SYMBOL}
+
+    Memory view
+      (gdb) x/{BYTE_SIZE} {ADDRESS/SYMBOL}
+
+pwntools
+  Run python
+    $ python3
+
+    Import pwn
+      >>> import pwn
+
+one-gadget (rop one gadget finder)
+  Find gadget in binary
+    $ one_gadget {BINARY_FILE}
+
+radare2 (disassembler)
+  Open binary with radare2
+    $ r2 {BINARY_FILE}
+
+    Help
+      [r2] ?
+
+    Analyze all
+      [r2] aa
+
+    Disassemble address
+      [r2] pdf @ {ADDRESS/SYMBOL}
+
+    Decompile with ghidra
+      [r2] pdg @ {ADDRESS/SYMBOL}
