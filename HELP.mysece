@@ -41,3 +41,24 @@ radare2 (disassembler)
 
     Decompile with ghidra
       [r2] pdg @ {ADDRESS/SYMBOL}
+
+    Xref to
+      [r2] axt
+
+    Xref from
+      [r2] axf
+
+    Visual mode
+      [r2] v
+
+      Exit
+        q
+
+      Define cursor as string, function ...(Show options)
+        d
+
+        Rename a function
+          dr
+
+      Cross reference
+        x
