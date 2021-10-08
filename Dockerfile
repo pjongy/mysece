@@ -24,7 +24,7 @@ RUN echo "source $INSTALL_PATH/pwngdb/angelheap/gdbinit.py" >> ~/.gdbinit
 RUN echo "define hook-run" >> ~/.gdbinit
 RUN echo "python" >> ~/.gdbinit
 RUN echo "import angelheap" >> ~/.gdbinit
-RUN echo "angelheap.init_angelheap" >> ~/.gdbinit
+RUN echo "angelheap.init_angelheap()" >> ~/.gdbinit
 RUN echo "end" >> ~/.gdbinit
 RUN echo "end" >> ~/.gdbinit
 
