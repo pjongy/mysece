@@ -29,8 +29,6 @@ RUN echo "end" >> ~/.gdbinit
 RUN echo "end" >> ~/.gdbinit
 
 RUN sudo apt install netcat -y
-RUN sudo apt-get -y install libssl-dev libffi-dev build-essential
-RUN python3 -m pip install --upgrade pwntools
 
 RUN git clone https://github.com/volatilityfoundation/volatility3 $INSTALL_PATH/volatility3
 RUN echo "alias volatility='python3 $INSTALL_PATH/volatility3/vol.py'" >> ~/.zshrc
@@ -46,6 +44,11 @@ RUN r2pm update
 RUN r2pm -ci r2ghidra
 
 #
+# Install python modules
+RUN python3 -m pip install --upgrade pip
+# Install pwntools
+RUN sudo apt-get -y install libssl-dev libffi-dev build-essential
+RUN python3 -m pip install pwntools
 # Install angr
 # It might be occurred dependency resolving error while installing angr (need 2020-resolver)
 RUN python3 -m pip install angr --use-feature=2020-resolver
