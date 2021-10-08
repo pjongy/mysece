@@ -62,3 +62,10 @@ radare2 (disassembler)
 
       Cross reference
         x
+
+angr
+  Run python
+    $ python3
+
+    Import angr
+      >>> import angr

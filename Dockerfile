@@ -45,6 +45,11 @@ RUN sudo apt install cmake -y
 RUN r2pm update
 RUN r2pm -ci r2ghidra
 
+#
+# Install angr
+# It might be occurred dependency resolving error while installing angr (need 2020-resolver)
+RUN python3 -m pip install angr --use-feature=2020-resolver
+
 COPY --chown=$USERNAME ./HELP.mysece /home/$USERNAME/HELP.mysece
 RUN cat /home/$USERNAME/HELP.mysece >> /home/$USERNAME/HELP
 RUN rm ~/HELP.mysece
