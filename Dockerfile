@@ -53,6 +53,11 @@ RUN python3 -m pip install pwntools
 # It might be occurred dependency resolving error while installing angr (need 2020-resolver)
 RUN python3 -m pip install angr --use-feature=2020-resolver
 
+# Update alternatives for python
+ARG PYTHON_VERSION=3.9.0
+RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force
+RUN sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100 --force
+
 COPY --chown=$USERNAME ./HELP.mysece /home/$USERNAME/HELP.mysece
 RUN cat /home/$USERNAME/HELP.mysece >> /home/$USERNAME/HELP
 RUN rm ~/HELP.mysece
