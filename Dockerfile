@@ -53,6 +53,13 @@ RUN python3 -m pip install pwntools
 # It might be occurred dependency resolving error while installing angr (need 2020-resolver)
 RUN python3 -m pip install angr --use-feature=2020-resolver
 
+#
+# Install metasploit
+RUN curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > $INSTALL_PATH/msfinstall && \
+  chmod 755 $INSTALL_PATH/msfinstall && \
+  $INSTALL_PATH/msfinstall
+RUN echo alias msf=/opt/metasploit-framework/bin/msfconsole >> ~/.zshrc
+
 # Update alternatives for python
 ARG PYTHON_VERSION=3.9.0
 RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force
