@@ -61,6 +61,13 @@ RUN curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/conf
 RUN rm -f msfinstall
 RUN echo alias msf=/opt/metasploit-framework/bin/msfconsole >> ~/.zshrc
 
+#
+# Install jadx
+RUN wget -O $INSTALL_PATH/jadx-1.3.2.305-7a5a2fcd.zip https://nightly.link/skylot/jadx/workflows/build/master/jadx-1.3.2.305-7a5a2fcd.zip
+RUN sudo unzip $INSTALL_PATH/jadx-1.3.2.305-7a5a2fcd.zip -d /opt/jadx/
+RUN sudo chmod -R 755 /opt/jadx/bin/
+RUN echo alias jadx=/opt/jadx/bin/jadx >> ~/.zshrc
+
 # Update alternatives for python
 ARG PYTHON_VERSION=3.9.0
 RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force

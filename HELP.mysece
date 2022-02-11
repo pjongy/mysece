@@ -73,3 +73,7 @@ angr
 metasploit
   Run msf
     $ msf
+
+jadx (dex to java decompiler)
+  Run jadx
+    $ jadx
