@@ -69,3 +69,7 @@ angr
 
     Import angr
       >>> import angr
+
+metasploit
+  Run msf
+    $ msf
