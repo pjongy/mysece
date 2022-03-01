@@ -61,8 +61,8 @@ RUN rm -f msfinstall && \
 
 #
 # Install jadx
-RUN wget -O $INSTALL_PATH/jadx-1.3.2.305-7a5a2fcd.zip https://nightly.link/skylot/jadx/workflows/build/master/jadx-1.3.2.305-7a5a2fcd.zip && \
- sudo unzip $INSTALL_PATH/jadx-1.3.2.305-7a5a2fcd.zip -d /opt/jadx/ && \
+RUN wget -O $INSTALL_PATH/jadx.zip https://github.com/skylot/jadx/releases/download/v1.3.3/jadx-1.3.3.zip && \
+ sudo unzip $INSTALL_PATH/jadx.zip -d /opt/jadx/ && \
  sudo chmod -R 755 /opt/jadx/bin/ && \
  echo alias jadx=/opt/jadx/bin/jadx >> ~/.zshrc
 
