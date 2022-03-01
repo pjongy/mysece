@@ -13,9 +13,7 @@ RUN sudo dpkg --add-architecture i386 && \
  sudo apt-get -y install socat gdb git gcc vim && \
  sudo apt-get -y install gcc-multilib
 
-RUN sudo git clone https://github.com/pwndbg/pwndbg $INSTALL_PATH/pwndbg && \
- cd $INSTALL_PATH/pwndbg && ./setup.sh && \
- sudo git clone https://github.com/longld/peda.git $INSTALL_PATH/peda && \
+RUN sudo git clone https://github.com/longld/peda.git $INSTALL_PATH/peda && \
  sudo git clone https://github.com/scwuaptx/Pwngdb.git $INSTALL_PATH/pwngdb
 # gdb init setup to use pwngdb
 RUN echo "source $INSTALL_PATH/peda/peda.py" > ~/.gdbinit && \
