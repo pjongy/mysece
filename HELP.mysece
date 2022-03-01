@@ -33,14 +33,21 @@ radare2 (disassembler)
     Help
       [r2] ?
 
-    Analyze all
-      [r2] aa
+    Analyze
+      All
+        [r2] aa
+
+      Function
+        [r2] af
+
+      Rename function
+        [r2] afn
 
     Disassemble address
-      [r2] pdf @ {ADDRESS/SYMBOL}
+      [r2] pdf {@ ADDRESS/SYMBOL/$$ OFFSET}
 
     Decompile with ghidra
-      [r2] pdg @ {ADDRESS/SYMBOL}
+      [r2] pdg {@ ADDRESS/SYMBOL/$$ OFFSET}
 
     Xref to
       [r2] axt
@@ -50,6 +57,32 @@ radare2 (disassembler)
 
     Visual mode
       [r2] v
+
+      Show cursor
+        c
+
+      Graph mode
+        V
+
+        Functions
+          v
+      Menu
+        m
+
+      Window setup mode
+        w
+
+        Set panel size
+          [Shift] + h/j/k/l (or arrow)
+
+        Rotate panel (vertical)
+          t/T
+
+        Rotate panel (horizontal)
+          p/P
+
+      Help
+        ?
 
       Exit
         q
@@ -62,6 +95,23 @@ radare2 (disassembler)
 
       Cross reference
         x
+
+    Print
+      [r2] px {@ ADDRESS/SYMBOL/$$ OFFSET}
+
+    Change current offset
+      [r2] s {@ ADDRESS/SYMBOL/$$ OFFSET}
+
+    Project
+
+      Project save (into ~/.local/share/radare2/projects)
+        [r2] Ps {PROJECT_NAME}
+
+      Load project
+        [r2] Po {PROJECT_NAME}
+
+      Delete project
+        [r2] P- {PROJECT_NAME}
 
 angr
   Run python
