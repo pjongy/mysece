@@ -66,6 +66,20 @@ RUN wget -O $INSTALL_PATH/jadx.zip https://github.com/skylot/jadx/releases/downl
  sudo chmod -R 755 /opt/jadx/bin/ && \
  echo alias jadx=/opt/jadx/bin/jadx >> ~/.zshrc
 
+#
+# Install binwalk
+RUN git clone https://github.com/ReFirmLabs/binwalk.git $INSTALL_PATH/binwalk &&\
+  cd $INSTALL_PATH/binwalk &&\
+  python3 setup.py install &&\
+  echo alias binwalk=python3 -m binwalk >> ~/.zshrc
+# sqaushfs dependencies
+# original is https://github.com/devttys0/sasquatch but build failed (ref. https://github.com/devttys0/sasquatch/pull/47)
+RUN sudo apt-get install build-essential liblzma-dev liblzo2-dev zlib1g-dev -y
+RUN git clone https://github.com/threadexio/sasquatch.git $INSTALL_PATH/sasquatch &&\
+  cd $INSTALL_PATH/sasquatch &&\
+  git checkout 82da12efe97a37ddcd33dba53933bc96db4d7c69 &&\
+  ./build.sh
+
 # Update alternatives for python
 ARG PYTHON_VERSION=3.9.0
 RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force && \
