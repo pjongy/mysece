@@ -1,4 +1,4 @@
-FROM pjongy/myde:3.0.0
+FROM pjongy/myde:4.0.0
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -10,7 +10,7 @@ ENV INSTALL_PATH $INSTALL_PATH
 RUN sudo dpkg --add-architecture i386 && \
  sudo apt-get -y update --fix-missing && sudo apt-get -y upgrade && \
  sudo apt-get -y install libc6:i386 libncurses5:i386 libstdc++6:i386 && \
- sudo apt-get -y install socat gdb git gcc vim && \
+ sudo apt-get -y install socat gdb git gcc && \
  sudo apt-get -y install gcc-multilib
 
 RUN sudo git clone https://github.com/longld/peda.git $INSTALL_PATH/peda && \
@@ -71,7 +71,7 @@ RUN wget -O $INSTALL_PATH/jadx.zip https://github.com/skylot/jadx/releases/downl
 RUN git clone https://github.com/ReFirmLabs/binwalk.git $INSTALL_PATH/binwalk &&\
   cd $INSTALL_PATH/binwalk &&\
   python3 setup.py install &&\
-  echo alias binwalk=python3 -m binwalk >> ~/.zshrc
+  echo alias binwalk=\"python3 -m binwalk\" >> ~/.zshrc
 # sqaushfs dependencies
 # original is https://github.com/devttys0/sasquatch but build failed (ref. https://github.com/devttys0/sasquatch/pull/47)
 RUN sudo apt-get install build-essential liblzma-dev liblzo2-dev zlib1g-dev -y
