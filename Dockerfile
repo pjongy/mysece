@@ -1,4 +1,4 @@
-FROM pjongy/myde:4.0.0
+FROM pjongy/myde:4.0.7
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -46,10 +46,10 @@ RUN r2pm update && \
 RUN python3 -m pip install --upgrade pip
 # Install pwntools
 RUN sudo apt-get -y install libssl-dev libffi-dev build-essential
-RUN python3 -m pip install pwntools
+RUN python3 -m pip install pwntools==4.9.0
 # Install angr
 # It might be occurred dependency resolving error while installing angr (need 2020-resolver)
-RUN python3 -m pip install angr --use-feature=2020-resolver
+RUN python3 -m pip install angr==9.2.35
 
 #
 # Install metasploit
