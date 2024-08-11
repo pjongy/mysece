@@ -38,7 +38,7 @@ RUN git clone https://github.com/radareorg/radare2 $INSTALL_PATH/radare2 &&\
   $INSTALL_PATH/radare2/sys/install.sh && \
   sudo apt install cmake -y
 # Install radare2 ghidra plugin
-RUN r2pm update && \
+RUN r2pm -u && \
   r2pm -ci r2ghidra
 
 #
