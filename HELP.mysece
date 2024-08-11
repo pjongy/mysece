@@ -113,6 +113,15 @@ radare2 (disassembler)
       Delete project
         [r2] P- {PROJECT_NAME}
 
+
+radiff2 (radare2 binary differ)
+  Show unmatched functions
+    $ radiff2 -AC -a x86 /bin/true /bin/false | grep UNMATCH
+
+  Show diff graph for DarunGrim
+    $ radiff2 -md -g main /bin/true /bin/false
+
+
 angr
   Run python
     $ python3
