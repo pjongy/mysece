@@ -1,11 +1,11 @@
-FROM pjongy/myde:4.0.7
+FROM pjongy/myde:4.5.2
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 ARG USERNAME=dev
-ENV USERNAME $USERNAME
+ENV USERNAME=$USERNAME
 ARG INSTALL_PATH=/home/$USERNAME/installed
-ENV INSTALL_PATH $INSTALL_PATH
+ENV INSTALL_PATH=$INSTALL_PATH
 
 RUN sudo dpkg --add-architecture i386 && \
  sudo apt-get -y update --fix-missing && sudo apt-get -y upgrade && \
@@ -81,7 +81,7 @@ RUN git clone https://github.com/threadexio/sasquatch.git $INSTALL_PATH/sasquatc
   ./build.sh
 
 # Update alternatives for python
-ARG PYTHON_VERSION=3.9.0
+ARG PYTHON_VERSION=3.12.0
 RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force && \
  sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100 --force
 
