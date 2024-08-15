@@ -47,6 +47,9 @@ RUN git clone https://github.com/radareorg/radare2 $INSTALL_PATH/radare2 &&\
 RUN r2pm -u && \
   r2pm -ci r2ghidra
 
+# Install radare2 decompile plugin
+RUN sudo apt-get install meson ninja-build -y && pip3 install meson
+RUN r2pm -ci r2dec
 
 #
 # Install python modules

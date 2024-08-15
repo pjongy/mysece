@@ -49,6 +49,9 @@ radare2 (disassembler)
     Decompile with ghidra
       [r2] pdg {@ ADDRESS/SYMBOL/$$ OFFSET}
 
+    Decompile current offset and print with r2dec
+      [r2] pdd
+
     Xref to
       [r2] axt
 
@@ -56,6 +59,21 @@ radare2 (disassembler)
       [r2] axf
 
     Visual mode
+      [r2] V
+
+      Move offset
+        g
+
+      Change view type
+        p
+
+      Show graph
+        V
+
+      Convert cursor/move mode
+        c
+
+    Panel mode
       [r2] v
 
       Show cursor
