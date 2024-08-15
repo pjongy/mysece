@@ -133,6 +133,17 @@ metasploit
   Run msf
     $ msf
 
+
 jadx (dex to java decompiler)
   Run jadx
     $ jadx
+
+
+ghidriff (binary diffing tool via ghidra)
+  Run ghidriff
+    $ ghidriff OLD_VERSION_BIN NEW_VERSION_BIn
+
+
+ghidrecomp (binary decompiler tool via ghidra)
+  Run ghidrecomp
+    $ ghidrecomp BIN

@@ -41,6 +41,11 @@ RUN git clone https://github.com/radareorg/radare2 $INSTALL_PATH/radare2 &&\
 RUN r2pm -u && \
   r2pm -ci r2ghidra
 
+# Update alternatives for python
+ARG PYTHON_VERSION=3.12.0
+RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force && \
+ sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100 --force
+
 #
 # Install python modules
 RUN python3 -m pip install --upgrade pip
@@ -80,10 +85,21 @@ RUN git clone https://github.com/threadexio/sasquatch.git $INSTALL_PATH/sasquatc
   git checkout 82da12efe97a37ddcd33dba53933bc96db4d7c69 &&\
   ./build.sh
 
-# Update alternatives for python
-ARG PYTHON_VERSION=3.12.0
-RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force && \
- sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100 --force
+# Update jdk version to use ghidra 11.1
+RUN ~/.jabba/bin/jabba install openjdk@1.17.0
+ENV JAVA_HOME=/home/dev/.jabba/jdk/openjdk@1.17.0
+ENV PATH="$JAVA_HOME/bin:$PATH"
+
+# Install ghidra
+RUN wget -O $INSTALL_PATH/ghidra_11.1.2.zip \
+  https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip
+RUN ouch decompress $INSTALL_PATH/ghidra_11.1.2.zip --dir $INSTALL_PATH/ghidra_11.1.2/
+
+# Install ghidriff and ghidremp
+ENV GHIDRA_INSTALL_DIR=$INSTALL_PATH/ghidra_11.1.2/ghidra_11.1.2_PUBLIC
+RUN pip3 install ghidriff && pip3 install ghidrecomp
+RUN echo alias ghidriff=\"python3 -m ghidriff\" >> ~/.zshrc && \
+  echo alias ghidrecomp=\"python3 -m ghidrecomp\" >> ~/.zshrc
 
 COPY --chown=$USERNAME ./HELP.mysece /home/$USERNAME/HELP.mysece
 RUN cat /home/$USERNAME/HELP.mysece >> /home/$USERNAME/HELP && \
