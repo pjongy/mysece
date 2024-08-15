@@ -7,6 +7,11 @@ ENV USERNAME=$USERNAME
 ARG INSTALL_PATH=/home/$USERNAME/installed
 ENV INSTALL_PATH=$INSTALL_PATH
 
+# Update alternatives for python
+ARG PYTHON_VERSION=3.12.0
+RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force && \
+ sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100 --force
+
 RUN sudo dpkg --add-architecture i386 && \
  sudo apt-get -y update --fix-missing && sudo apt-get -y upgrade && \
  sudo apt-get -y install libc6:i386 libncurses5:i386 libstdc++6:i386 && \
@@ -37,24 +42,20 @@ RUN sudo apt-get install ruby-full -y && \
 RUN git clone https://github.com/radareorg/radare2 $INSTALL_PATH/radare2 &&\
   $INSTALL_PATH/radare2/sys/install.sh && \
   sudo apt install cmake -y
+
 # Install radare2 ghidra plugin
 RUN r2pm -u && \
   r2pm -ci r2ghidra
 
-# Update alternatives for python
-ARG PYTHON_VERSION=3.12.0
-RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force && \
- sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100 --force
 
 #
 # Install python modules
 RUN python3 -m pip install --upgrade pip
 # Install pwntools
 RUN sudo apt-get -y install libssl-dev libffi-dev build-essential
-RUN python3 -m pip install pwntools==4.9.0
+RUN python3 -m pip install pwntools==4.13.0
 # Install angr
-# It might be occurred dependency resolving error while installing angr (need 2020-resolver)
-RUN python3 -m pip install angr==9.2.35
+RUN python3 -m pip install angr==9.2.115
 
 #
 # Install metasploit
