@@ -31,6 +31,12 @@ RUN echo "source $INSTALL_PATH/peda/peda.py" > ~/.gdbinit && \
  echo "end" >> ~/.gdbinit && \
  echo "end" >> ~/.gdbinit
 
+# Install gef (gdb enhanced feature)
+RUN sudo apt install file -y && \
+  wget -O $INSTALL_PATH/.gdbinit-gef.py -q https://gef.blah.cat/py && \
+  echo source $INSTALL_PATH/.gdbinit-gef.py >> ~/.gdbinit
+RUN sudo cp ~/.gdbinit /root/.gdbinit
+
 RUN sudo apt install netcat -y && sudo apt install strace ltrace -y
 
 RUN git clone https://github.com/volatilityfoundation/volatility3 $INSTALL_PATH/volatility3 && \

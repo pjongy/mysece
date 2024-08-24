@@ -2,18 +2,39 @@ volatilty
   Open memory dump
     $ volatility -f {DUMP}
 
-gdb-peda
+gdb(with gef, peda)
   Open binary with gdb
     $ gdb {BINARY_FILE}
 
+    Start debugging
+      (gdb) starti
+
+    Continue
+      (gdb) c
+
     Run
       (gdb) r
+
+    Show info of *
+      (gdb) info
 
     Breakpoint
       (gdb) b *{ADDRESS/SYMBOL}
 
     Memory view
       (gdb) x/{BYTE_SIZE} {ADDRESS/SYMBOL}
+
+    GEF
+      HELP
+        (gdb) gef
+
+      Show context
+        (gdb) ctx
+
+      Enable/disable context
+        (gdb) gef config context.enable 1
+        (gdb) gef config context.enable 0
+
 
 pwntools
   Run python
