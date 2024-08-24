@@ -1,4 +1,4 @@
-FROM pjongy/myde:4.5.2
+FROM pjongy/myde:4.6.0
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -31,7 +31,7 @@ RUN echo "source $INSTALL_PATH/peda/peda.py" > ~/.gdbinit && \
  echo "end" >> ~/.gdbinit && \
  echo "end" >> ~/.gdbinit
 
-RUN sudo apt install netcat -y
+RUN sudo apt install netcat -y && sudo apt install strace ltrace -y
 
 RUN git clone https://github.com/volatilityfoundation/volatility3 $INSTALL_PATH/volatility3 && \
   echo "alias volatility='python3 $INSTALL_PATH/volatility3/vol.py'" >> ~/.zshrc
