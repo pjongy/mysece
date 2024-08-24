@@ -48,8 +48,17 @@ one-gadget (rop one gadget finder)
     $ one_gadget {BINARY_FILE}
 
 radare2 (disassembler)
-  Open binary with radare2
+  Load binary with radare2
     $ r2 {BINARY_FILE}
+
+  Load binary as debug mode with radare2
+    $ r2 -d {BINARY_FILE}
+
+    Run debug
+      [r2] ood
+
+    Show binary info
+      [r2] iI
 
     Help
       [r2] ?
