@@ -91,29 +91,58 @@ radare2 (disassembler)
     Visual mode
       [r2] V
 
+      Change graph mode (or [r2] VV)
+        V
+
+        Move node
+          Previous
+            Shift + Tab
+          Next
+            Tab
+          True branch node
+            t
+          False branch node
+            f
+
       Move offset
         g
 
       Change view type
         p
 
-      Show graph
-        V
-
-      Convert cursor/move mode
+      Swap cursor mode
         c
+
 
     Panel mode
       [r2] v
 
-      Show cursor
-        c
+      **Tips**
+        - If need to refresh due to panel layout breaking, show HELP by ? and close
+
+      Find function
+        _
 
       Graph mode
         V
 
         Functions
           v
+
+      Swap graph
+        [space]
+
+      Split panel
+        Horizontal
+          -
+
+        Vertical
+          |
+
+      Panel controll
+        Change current pane to other
+          "
+
       Menu
         m
 
@@ -143,6 +172,14 @@ radare2 (disassembler)
 
       Cross reference
         x
+
+        Xref
+          x
+        ref
+          X
+
+      Swap cursor mode
+        c
 
     Print
       [r2] px {@ ADDRESS/SYMBOL/$$ OFFSET}
