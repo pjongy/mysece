@@ -1,6 +1,12 @@
+binwalk
+  Anaylize firmware
+    $ binwalk {BINARY_FILE}
+
+
 volatilty
   Open memory dump
     $ volatility -f {DUMP}
+
 
 gdb(with gef, peda)
   Open binary with gdb
