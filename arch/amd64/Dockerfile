@@ -13,38 +13,29 @@ RUN sudo dpkg --add-architecture i386 && \
  sudo apt-get -y install socat gdb git gcc && \
  sudo apt-get -y install gcc-multilib
 
-RUN sudo git clone https://github.com/scwuaptx/Pwngdb.git $INSTALL_PATH/pwngdb
-# gdb init setup to use pwngdb
-RUN echo "source $INSTALL_PATH/pwngdb/pwngdb.py" >> ~/.gdbinit && \
- echo "source $INSTALL_PATH/pwngdb/angelheap/gdbinit.py" >> ~/.gdbinit && \
- echo "define hook-run" >> ~/.gdbinit && \
- echo "python" >> ~/.gdbinit && \
- echo "import angelheap" >> ~/.gdbinit && \
- echo "angelheap.init_angelheap()" >> ~/.gdbinit && \
- echo "end" >> ~/.gdbinit && \
- echo "end" >> ~/.gdbinit
-
 # Install gef (gdb enhanced feature)
 RUN sudo apt install file -y && \
   wget -O $INSTALL_PATH/.gdbinit-gef.py -q https://gef.blah.cat/py && \
   echo source $INSTALL_PATH/.gdbinit-gef.py >> ~/.gdbinit
-RUN sudo cp ~/.gdbinit /root/.gdbinit
+RUN sudo cp ~/.gdbinit /root/.gdbinit  # setup for gdb with root
 
 # Install netcat, stract, ltrace
-RUN sudo apt install ncat -y && sudo apt install strace ltrace -y
+RUN sudo apt install ncat strace ltrace -y
 
+# Install volatility
 RUN git clone https://github.com/volatilityfoundation/volatility3 $INSTALL_PATH/volatility3 && \
   echo "alias volatility='python3 $INSTALL_PATH/volatility3/vol.py'" >> ~/.zshrc
 
+# Install one_gadget
 RUN sudo apt-get install ruby-full -y && \
   sudo gem install one_gadget
 
+# Install radare2
 RUN git clone https://github.com/radareorg/radare2 $INSTALL_PATH/radare2 \
   && $INSTALL_PATH/radare2/sys/install.sh
-
-# Install radare2 ghidra plugin
 RUN sudo apt-get install meson ninja-build cmake -y \
   && pip3 install meson==1.7.0 # meson does not need to be reinsall when python is reinstalled
+# Install radare2 ghidra plugin
 RUN r2pm -U && \
   r2pm -ci r2ghidra
 # Install radare2 decompile plugin
@@ -76,7 +67,7 @@ RUN jabba ls | xargs -L1 jabba uninstall
 # Update jdk version to use ghidra 11.1 -> JAVA_HOME and PATH will be set by ~/.zshrc
 RUN jabba install openjdk@1.17.0
 
-# Install ghidra
+# Install ghidra (not releated with r2ghidra)
 RUN wget -O $INSTALL_PATH/ghidra_11.1.2.zip \
   https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip
 RUN ouch decompress $INSTALL_PATH/ghidra_11.1.2.zip --dir $INSTALL_PATH/ghidra_11.1.2/
