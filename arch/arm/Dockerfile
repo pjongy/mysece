@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64/v8 pjongy/myde:4.7.0-arm
+FROM --platform=linux/arm64/v8 pjongy/myde:5.0.0-arm
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -58,8 +58,19 @@ RUN wget -O $INSTALL_PATH/jadx.zip https://github.com/skylot/jadx/releases/downl
 RUN cargo install binwalk
 
 #
-# NOTE: ghidra allows jdk 17+ but jabba does not suport
-# TODO: change to use sdkman and revive
+# Install ghidra (not releated with r2ghidra, for ghidriff, ghidrecomp)
+# NOTE: ghidra 11.3 allows jdk 21+, to be precise explicitly, install 21, Y for set as default
+RUN echo "yes "Y" | sdk install java 21.0.6-zulu" >> $INSTALL_PATH/installer/jdk.sh
+# Install ghidra
+RUN $INSTALL_PATH/installer/jdk.sh
+RUN git clone https://github.com/NationalSecurityAgency/ghidra.git $INSTALL_PATH/ghidra \
+  && cd $INSTALL_PATH/ghidra && git checkout Ghidra_11.3_build
+RUN cd $INSTALL_PATH/ghidra \
+  && JAVA_HOME=$HOME_PATH/.sdkman/candidates/java/current ./gradlew -I gradle/support/fetchDependencies.gradle \
+  && JAVA_HOME=$HOME_PATH/.sdkman/candidates/java/current ./gradlew buildGhidra
+# NOTE: dist/ghidra_11.3_YYYYMMDD.zip
+RUN ouch decompress $INSTALL_PATH/ghidra/build/dist/ghidra_11.3*.zip --dir $INSTALL_PATH
+ENV GHIDRA_INSTALL_DIR=$INSTALL_PATH/ghidra_11.3_DEV
 
 # Install dependencies for pwntool, angr (will be installed by installer)
 RUN apt-get -y install libssl-dev libffi-dev build-essential
@@ -68,11 +79,17 @@ RUN apt-get -y install libssl-dev libffi-dev build-essential
 # Install python modules
 # Install pwntools
 # Install angr
+# Install ghidriff and ghidremp
 RUN echo "python3 -m pip install meson==1.7.0" >> $INSTALL_PATH/installer/python.sh \
   && echo "python3 -m pip install pwntools==4.13.0" >> $INSTALL_PATH/installer/python.sh \
-  && echo "python3 -m pip install angr==9.2.115" >> $INSTALL_PATH/installer/python.sh
+  && echo "python3 -m pip install angr==9.2.115" >> $INSTALL_PATH/installer/python.sh \
+  && echo "python3 -m pip install ghidriff==0.7.3" >> $INSTALL_PATH/installer/python.sh \
+  && echo "python3 -m pip install ghidrecomp==0.5.5" >> $INSTALL_PATH/installer/python.sh
 
 RUN $INSTALL_PATH/installer/python.sh
+
+RUN echo alias ghidriff=\"python3 -m ghidriff\" >> ~/.zshrc && \
+  echo alias ghidrecomp=\"python3 -m ghidrecomp\" >> ~/.zshrc
 
 
 COPY --chown=$USERNAME ./HELP.mysece $HOME_PATH/HELP.mysece

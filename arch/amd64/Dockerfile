@@ -1,4 +1,4 @@
-FROM pjongy/myde:4.7.0-amd64
+FROM pjongy/myde:5.0.0-amd64
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -61,13 +61,11 @@ RUN wget -O $INSTALL_PATH/jadx.zip https://github.com/skylot/jadx/releases/downl
 RUN cargo install binwalk
 
 #
+# Install ghidra (not releated with r2ghidra, for ghidriff, ghidrecomp)
+# NOTE: ghidra allows jdk 17+, to be precise explicitly, install 17, Y for set as default
+RUN echo "yes "Y" | sdk install java 17.0.14-zulu" >> $INSTALL_PATH/installer/jdk.sh
 # Install ghidra
-# uninstall previous jdk version and update default as 1.17.0
-RUN jabba ls | xargs -L1 jabba uninstall
-# Update jdk version to use ghidra 11.1 -> JAVA_HOME and PATH will be set by ~/.zshrc
-RUN jabba install openjdk@1.17.0
-
-# Install ghidra (not releated with r2ghidra)
+RUN $INSTALL_PATH/installer/jdk.sh
 RUN wget -O $INSTALL_PATH/ghidra_11.1.2.zip \
   https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip
 RUN ouch decompress $INSTALL_PATH/ghidra_11.1.2.zip --dir $INSTALL_PATH/ghidra_11.1.2/
